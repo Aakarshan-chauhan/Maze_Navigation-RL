@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt 
 from GridWorld import standard_grid
 
-THRES = 1e-3
+THRESH = 1e-3
 #Threshold for convergence
 
 def print_values(V, g):
@@ -76,7 +76,7 @@ if __name__ == '__main__':
 				biggest_change = max(biggest_change, np.abs(V[s] - old_v))
 
 			# If biggest change in V(s) in state s is very low, exit. (convergence)
-		if biggest_change<THRES:
+		if biggest_change<THRESH:
 			break
 	print("Values for Uniformly random actions:")
 	print_values(V, grid)
