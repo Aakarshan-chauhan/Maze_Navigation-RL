@@ -1,4 +1,5 @@
 Solving Bellman Equations Using Dynamic Programming methods.
+
 Method 1:
   Policy Iteration
   
