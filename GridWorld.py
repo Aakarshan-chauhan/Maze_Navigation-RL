@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+
 import numpy as np
 
 
@@ -97,10 +97,10 @@ def negative_grid(step_cost=-0.15):
         (0, 1): step_cost,
         (0, 2): step_cost,
         (1, 0): step_cost,
-        (1, 1): step_cost,
         (1, 2): step_cost,
         (2, 0): step_cost,
         (2, 1): step_cost,
         (2, 2): step_cost,
+        (2, 3): step_cost
     })
     return g

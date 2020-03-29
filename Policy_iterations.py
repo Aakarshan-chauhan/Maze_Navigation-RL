@@ -1,9 +1,9 @@
 import numpy as np
-import matplotlib.pyplot as plt
-from GridWorld import standard_grid, negative_grid
+
+from GridWorld import negative_grid
 from iterative_policy_evalutaion import print_values, print_policy
 
-THRES = 1e-3
+THRESH = 1e-3
 GAMMA = 0.9
 ALL_POSSIBLE_ACTIONS = ('U', 'D', 'L', 'R')
 
@@ -52,7 +52,7 @@ if __name__ == '__main__':
                     V[s] = r + GAMMA*V[grid.current_state()]
                     biggest_change = max(biggest_change, np.abs(V[s]- old_v))
 
-            if biggest_change < THRES:
+            if biggest_change < THRESH:
                 break
 
         # Update Policy
