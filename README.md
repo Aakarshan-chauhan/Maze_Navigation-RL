@@ -1,8 +1,11 @@
-*The following contents are potential solutions for solving a grid (or a maze) by using Reinforcement Learning.
-The game consists of a grid( default: 3 x 4) which has one cell where the agent will win and one cell where it will loose.
-There can be multiple walls set in the grid which the agent would avoid. The goal of the agent is to start at a position and reach the win cell.*
+The following contents are potential solutions for solving a grid (or a maze) by using Reinforcement Learning.
 
-# The grid can be of two types:
+***Problem**: The game consists of a grid( default: 3 x 4) which has one cell where the agent will win and one cell where it will loose.
+There can be multiple walls set in the grid which the agent would avoid. The goal of the agent is to start at a position and reach the win cell.
+
+
+**The grid can be of two types:**
+
   1. Standard grid: A normal grid. Doesnt promote shortest path to the win.
   
   2. Negative grid: Each cell has a -0.1 reward which helps the agent to prioritize the shortest path.
@@ -19,10 +22,10 @@ Where `V[s]`(Expected Value of state `s`) signifies the importance of a state(`s
 
 `Gamma` is called a discount factor. It can range from 0 to 1. It signifies how important future rewards are. A discount of 0 would make the agent **greedy** and focus on the immidiate reward. A discount of 1 would rank all future rewards as equally important and make finding the shortest path harder. Hence a value around 0.8 or 0.9 is considered.
 
-`V[s']` is the expected value of state following the state `s`. If state was dependent solely on time, `s` would be `s at time t` and 
-`s'` would be `s at time t+1`.
+`V[s']` is the expected value of state following the state `s`. If state was dependent solely on time, `s` would be `state at time t` and `s'` would be `state at time t+1`.
 
-A Bellman Equations can be solved by various methods:
+**A Bellman Equations can be solved by various methods:
+
   1. Dynamic Programming:  
                            
                            - Policy Iteration
