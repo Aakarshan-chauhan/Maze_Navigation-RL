@@ -1,7 +1,7 @@
 The following contents are potential solutions for solving a grid (or a maze) by using Reinforcement Learning.
 
 ***Problem**: The game consists of a grid( default: 3 x 4) which has one cell where the agent will win and one cell where it will loose.
-There can be multiple walls set in the grid which the agent would avoid. The goal of the agent is to start at a position and reach the win cell.
+There can be multiple walls set in the grid which the agent would avoid. The goal of the agent is to start at a position and reach the win cell.*
 
 
 **The grid can be of two types:**
