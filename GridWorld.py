@@ -105,3 +105,26 @@ def negative_grid(step_cost=-0.1):
     for i in list(g.actions.keys()):
         g.rewards[i] = step_cost
     return g
+
+
+def print_values(Val, g):
+    for i in range(g.rows):
+        print("--------------------------------------")
+        for j in range(g.cols):
+            v = Val.get((i, j), 0)
+            if v >= 0:
+                print(" %.2f|" % v, end="")
+            else:
+                print("%.2f|" % v, end="")
+        print("")
+
+
+def print_policy(P, g):
+    for i in range(g.rows):
+        print("--------------------------------------")
+        for j in range(g.cols):
+            p = P.get((i, j), " ")
+            print("%s      |" % p, end="")
+        print("")
+
+
