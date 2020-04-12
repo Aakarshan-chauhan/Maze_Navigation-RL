@@ -1,83 +1,79 @@
 import numpy as np
+from GridWorld import standard_grid, negative_grid, print_values, print_policy
 
-from GridWorld import negative_grid
-from iterative_policy_evalutaion import print_values, print_policy
-
-THRESH = 1e-3
+THRESHOLD = 1e-3
+ALL_ACTIONS = ('U', 'D', 'L', 'R')
 GAMMA = 0.9
-ALL_POSSIBLE_ACTIONS = ('U', 'D', 'L', 'R')
 
 if __name__ == '__main__':
-
-    # Each step in this grid has a negative reward
-    # so that shorter path is encouraged
+    # Initialize a grid object
     grid = negative_grid()
-    #grid = standard_grid()
-    print("rewards:")
-    print_values(grid.rewards, grid)
-
-    # Randomly initialize a policy and update as we learn
+    states = grid.all_states()
+    # Randomly initialize the policy for all possible actions
     policy = {}
     for s in grid.actions.keys():
-        policy[s] = np.random.choice(ALL_POSSIBLE_ACTIONS)
-
-    # Initial policy
-    print("Initial Policy")
+        policy[s] = np.random.choice(ALL_ACTIONS)
+    print("Initial Policy: ")
     print_policy(policy, grid)
 
-    # Initialize V(s)
+    # Randomly initialize the values for all possible actions and 0 for others
     V = {}
-    states = grid.all_states()
     for s in states:
-        # Non terminal state
-        if s in grid.actions:
+        if s in policy:
             V[s] = np.random.random()
         else:
-            # Terminal State
             V[s] = 0
+    print("Initial Values: ")
+    print_values(V, grid)
 
-    # Loop till policy keeps changing.
+    # Loop till previous Policy  = updated policy
     while True:
 
-        # Iterative Policy Evaluations
+        # Iterative Policy Evaluation
         while True:
             biggest_change = 0
             for s in states:
                 old_v = V[s]
-
                 if s in policy:
                     a = policy[s]
                     grid.set_state(s)
                     r = grid.move(a)
-                    V[s] = r + GAMMA*V[grid.current_state()]
-                    biggest_change = max(biggest_change, np.abs(V[s]- old_v))
+                    V[s] = r + GAMMA * V[grid.current_state()]
+                    biggest_change = max(biggest_change, np.abs(old_v - V[s]))
 
-            if biggest_change < THRESH:
+            if biggest_change < THRESHOLD:
                 break
 
         # Update Policy
-        policy_changed = True
+        Policy_changed = False
         for s in states:
             if s in policy:
                 old_a = policy[s]
                 new_a = None
                 best_value = float('-inf')
 
-                for a in ALL_POSSIBLE_ACTIONS:
+                # Best value will be taken as the Max over all actions in a particular state
+                for a in ALL_ACTIONS:
                     grid.set_state(s)
                     r = grid.move(a)
                     v = r + GAMMA*V[grid.current_state()]
-
                     if v > best_value:
-                        new_a = a
                         best_value = v
+                        new_a = a
+
+                # Update the policy with the action corresponding to best value
                 policy[s] = new_a
 
-                if new_a != old_a:
-                    policy_changed = False
-        if policy_changed:
+                # If there was no change in action, optimal action already attained
+                if old_a != new_a:
+                    Policy_changed = True
+
+        # If Policy did not change for a whole set of states, no more iterations are required
+        if not Policy_changed:
             break
-    print("Values:")
+
+    # Print the required information
+    print("Changed Values: ")
     print_values(V, grid)
-    print("Policy:")
+    print("New Policy: ")
     print_policy(policy, grid)
