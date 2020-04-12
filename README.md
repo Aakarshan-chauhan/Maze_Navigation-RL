@@ -20,15 +20,17 @@ Where `V[s]`(Expected Value of state `s`) signifies the importance of a state(`s
 `Gamma` is called a discount factor. It can range from 0 to 1. It signifies how important future rewards are. A discount of 0 would make the agent **greedy** and focus on the immidiate reward. A discount of 1 would rank all future rewards as equally important and make finding the shortest path harder. Hence a value around 0.8 or 0.9 is considered.
 
 `V[s']` is the expected value of state following the state `s`. If state was dependent solely on time, `s` would be `s at time t` and 
-
 `s'` would be `s at time t+1`.
 
 A Bellman Equations can be solved by various methods:
   1. Dynamic Programming:  - Policy Iteration
+                           
                            - Value Iteration
   2. Monte Carlo
   
+  
   3. Temporal Difference: - SARSA
+                          
                           - Q-Learning
                           
 # A Reinforcement Learning problem can be broken down into two sub parts:
