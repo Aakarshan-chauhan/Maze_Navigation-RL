@@ -24,7 +24,7 @@ Where `V[s]`(Expected Value of state `s`) signifies the importance of a state(`s
 
 `V[s']` is the expected value of state following the state `s`. If state was dependent solely on time, `s` would be `state at time t` and `s'` would be `state at time t+1`.
 
-**A Bellman Equations can be solved by various methods:
+**A Bellman Equations can be solved by various methods:**
 
   1. Dynamic Programming:  
                            
