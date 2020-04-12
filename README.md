@@ -23,13 +23,17 @@ Where `V[s]`(Expected Value of state `s`) signifies the importance of a state(`s
 `s'` would be `s at time t+1`.
 
 A Bellman Equations can be solved by various methods:
-  1. Dynamic Programming:  - Policy Iteration
+  1. Dynamic Programming:  
+                           
+                           - Policy Iteration
                            
                            - Value Iteration
   2. Monte Carlo
   
   
-  3. Temporal Difference: - SARSA
+  3. Temporal Difference: 
+  
+                          - SARSA
                           
                           - Q-Learning
                           
