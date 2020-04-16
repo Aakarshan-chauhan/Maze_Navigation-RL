@@ -1,5 +1,5 @@
 import numpy as np
-from GridWorld import negative_grid, print_values, print_policy
+from Maze import negative_maze, print_values, print_policy
 
 
 # Create a minimum threshold to check for convergence
@@ -11,7 +11,7 @@ ALL_ACTIONS = ('U', 'D', 'L', 'R')
 if __name__ == '__main__':
 
     # Make a grid object
-    grid = negative_grid()
+    grid = negative_maze()
     print("Rewards: ")
     print_values(grid.rewards, grid)
 

@@ -1,5 +1,5 @@
 import numpy as np
-from GridWorld import standard_grid, negative_grid, print_values, print_policy
+from Maze import standard_maze, negative_maze, print_values, print_policy
 
 THRESHOLD = 1e-3
 ALL_ACTIONS = ('U', 'D', 'L', 'R')
@@ -7,7 +7,7 @@ GAMMA = 0.9
 
 if __name__ == '__main__':
     # Initialize a grid object
-    grid = negative_grid()
+    grid = negative_maze()
     states = grid.all_states()
     # Randomly initialize the policy for all possible actions
     policy = {}
