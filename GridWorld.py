@@ -1,8 +1,5 @@
-import numpy as np
-
-
-# Define a class for the game board
-class Grid:
+# Define a class for the maze board
+class Maze:
 
     # Initialize number of rows, cols and start position
     def __init__(self, rows, cols, start):
@@ -57,9 +54,16 @@ class Grid:
         return set(self.actions.keys()) | set(self.rewards.keys())
 
 
-def standard_grid(rows=3, cols=4, start=(2, 0)):
-    g = Grid(rows, cols, start)
+def standard_maze(rows=8, cols=10, start=(7, 0)):
+    g = Maze(rows, cols, start)
     stoppers = []
+    stoppers = [[(7, 7)], [(7, 3)], [
+        (0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (4, 1), (6, 1), (7, 1), (1, 2),
+        (6, 2), (1, 3), (3, 3), (4, 3), (5, 3), (6, 3), (0, 5), (1, 5), (7, 5),
+        (7, 6), (5, 6), (5, 7), (0, 8), (2, 8), (4, 8), (5, 8), (7, 8), (0, 9), (7, 9),
+        (7, 2)
+    ]]
+    '''
     temp = []
     ar, b = input("Enter a win: ").split(',')
     stoppers.append(([[int(ar), int(b)]]))
@@ -71,8 +75,25 @@ def standard_grid(rows=3, cols=4, start=(2, 0)):
         ar, b = input("Enter a rock: ").split(',')
         temp.append(([int(ar), int(b)]))
     stoppers.append(temp)
-    actions = {}
+    actions = {}'''
 
+    actions = {}
+    for i in range(rows):
+        for j in range(cols):
+            list1 = []
+            if [(i, j)] not in stoppers and (i, j) not in stoppers[-1]:
+
+                if (i + 1, j) not in stoppers[-1] and i + 1 < rows:
+                    list1.append('D')
+                if (i - 1, j) not in stoppers[-1] and i - 1 >= 0:
+                    list1.append('U')
+                if (i, j + 1) not in stoppers[-1] and j + 1 < cols:
+                    list1.append('R')
+                if (i, j - 1) not in stoppers[-1] and j - 1 >= 0:
+                    list1.append('L')
+
+            actions[i, j] = tuple(list1)
+    '''
     for i in range(rows):
         for j in range(cols):
             list1 = []
@@ -88,6 +109,7 @@ def standard_grid(rows=3, cols=4, start=(2, 0)):
                     list1.append('L')
 
             actions[i, j] = tuple(list1)
+            '''
     rewards = {}
     for win in stoppers[0]:
         rewards[tuple(win)] = 1
@@ -100,8 +122,8 @@ def standard_grid(rows=3, cols=4, start=(2, 0)):
     return g
 
 
-def negative_grid(step_cost=-0.1):
-    g = standard_grid()
+def negative_maze(step_cost=-0.1, rows=8, cols=10, start=(7, 0)):
+    g = standard_maze(rows, cols, start)
     for i in list(g.actions.keys()):
         g.rewards[i] = step_cost
     return g
@@ -109,7 +131,7 @@ def negative_grid(step_cost=-0.1):
 
 def print_values(Val, g):
     for i in range(g.rows):
-        print("--------------------------------------")
+        print("----------------------------------------------------------------------")
         for j in range(g.cols):
             v = Val.get((i, j), 0)
             if v >= 0:
@@ -121,10 +143,8 @@ def print_values(Val, g):
 
 def print_policy(P, g):
     for i in range(g.rows):
-        print("--------------------------------------")
+        print("----------------------------------------------------------------------")
         for j in range(g.cols):
             p = P.get((i, j), " ")
             print("%s      |" % p, end="")
         print("")
-
-
