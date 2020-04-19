@@ -7,6 +7,7 @@ class Maze:
         self.cols = cols
         self.i = start[0]
         self.j = start[1]
+        self.start = start
 
     def set(self, rewards, actions):
         self.rewards = rewards
@@ -115,7 +116,7 @@ def standard_maze(rows=8, cols=10, start=(7, 0)):
         rewards[tuple(win)] = 1
 
     for loss in stoppers[1]:
-        rewards[tuple(loss)] = -1
+        rewards[tuple(loss)] = -5
 
     actions = {k: v for k, v in actions.items() if v is not ()}
     g.set(rewards, actions)
@@ -134,8 +135,10 @@ def print_values(Val, g):
         print("----------------------------------------------------------------------")
         for j in range(g.cols):
             v = Val.get((i, j), 0)
-            if v >= 0:
+            if v > 0:
                 print(" %.2f|" % v, end="")
+            elif v == 0:
+                print(" ### |", end="")
             else:
                 print("%.2f|" % v, end="")
         print("")
@@ -146,5 +149,8 @@ def print_policy(P, g):
         print("----------------------------------------------------------------------")
         for j in range(g.cols):
             p = P.get((i, j), " ")
-            print("%s      |" % p, end="")
+            if p != '':
+                print("%s      |" % p, end="")
+            else:
+                print(" ### |", end="")
         print("")

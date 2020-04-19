@@ -5,22 +5,21 @@ ALL_ACTIONS = ('U', 'D', 'L', 'R')
 GAMMA = 1
 
 
+def random_action(a, e=0.1):
+    prob = np.random.random()
+
+    if prob > (1 - e + e / len(ALL_ACTIONS)):
+        return a
+    else:
+        return np.random.choice(ALL_ACTIONS)
+
+
 def play_game(p, Grid):
-    # Randomly choose a starting position from all valid states
-    start_idx = np.random.choice(len(list(Grid.actions.keys())))
-    Grid.set_state(list(Grid.actions)[start_idx])
+    state = Grid.start
+    grid.set_state(state)
+    action = random_action(p[state])
 
-    # Let the first action be uniformly random
-    state = Grid.current_state()
-    action = np.random.choice(ALL_ACTIONS)
-
-    # Create a triple of state, action and reward
-    # It can be understood as doing action a at state s will give a reward 0
     sar = [(state, action, 0)]
-
-    # A set to keep track of visited states
-    seen_states = set()
-    seen_states.add(state)
 
     # Number of steps
     n = 0
@@ -28,24 +27,16 @@ def play_game(p, Grid):
 
         # Get the rewards by moving on the grid
         r = Grid.move(action)
-        n += 1
         state = Grid.current_state()
 
-        if state in seen_states:
-            r = -10. / n
-            # No action to be done if same state is visited twice hence return None
-            sar.append((state, None, r))
-            break
-
-        elif Grid.game_over():
+        if Grid.game_over():
             # No action to be done after reaching terminal states hence return None
             sar.append((state, None, r))
             break
 
         else:
-            action = policy[state]
+            action = random_action(policy[state])
             sar.append((state, action, r))
-        seen_states.add(state)
 
     # Returns and State Action Returns list
     G = 0
@@ -77,7 +68,7 @@ def max_dict(d):
 
 
 if __name__ == '__main__':
-    grid = negative_maze(step_cost=-.09)
+    grid = negative_maze(step_cost=-.5)
 
     # Randomly initialize a policy
     policy = {}
@@ -97,7 +88,7 @@ if __name__ == '__main__':
 
     biggest_changes = []
     # Play game and get returns
-    for t in range(20000):
+    for t in range(1000):
         if t % 100 == 0:
             print("Episode %d" % t)
         seen_state_actions = set()
